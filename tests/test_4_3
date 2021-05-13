@@ -1,0 +1,21 @@
+  
+
+  cmpl $3, begin
+  jne bad
+  cmpl $4, len
+  jne bad
+correct:
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+bad:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+  
+  
+.section .data
+arr: .int 6,4,1,9,7,6,3,4,2,1
+n: .int 10
+begin: .int 0
+len: .int 0

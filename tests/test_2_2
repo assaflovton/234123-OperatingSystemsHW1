@@ -1,0 +1,34 @@
+
+  xorl %ecx, %ecx
+  movq $source, %rbx
+
+cmpl $0,(%rbx,%rcx,4)
+jne bad_exit
+incl %ecx
+
+cmpl $1,(%rbx,%rcx,4)
+jne bad_exit
+incl %ecx
+
+cmpl $2,(%rbx,%rcx,4)
+jne bad_exit
+incl %ecx
+
+cmpl $3,(%rbx,%rcx,4)
+jne bad_exit
+incl %ecx
+
+
+  movq $60, %rax
+  movq $0, %rdi
+  syscall
+
+bad_exit:
+  movq $60, %rax
+  movq $1, %rdi
+  syscall
+
+.section .data
+source: .int 0,1,2,3
+destination: .int 1,2,3,4 # expected: .int 6,12,3,4
+num: .int 0
